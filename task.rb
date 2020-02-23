@@ -15,7 +15,8 @@ def q2
   array2 = %w(bird bat tiger)
 
   # 以下に回答を記載
-  array = []
+  # array = []
+  # + を使用する場合、事前に空の配列を宣言する必要はない
   array = array1 + array2
   puts array
 end
@@ -31,7 +32,8 @@ def q4
   sports = ["サッカー", "フットサル", nil, "野球", "バスケ", nil, "バレー"]
 
   # 以下に回答を記載
-  puts sports.compact
+  puts sports.compact!
+  p sports
 end
 
 def q5
@@ -57,7 +59,8 @@ def q7
   array = ["1", "2", "3", "4", "5"]
 
   # 以下に回答を記載
-  p array.map(&:to_i)
+  p array.map!(&:to_i)  # 破壊的メソッドを使用
+  p array
 
 end
 
@@ -65,7 +68,11 @@ def q8
   programming_languages = %w(ruby php python javascript)
 
   # 以下に回答を記載
+  # 先頭文字だけを大文字にする => 配列をループして単語毎にcapitalizeする
+  upper_case_programming_languages = programming_languages.each{|str| str.capitalize!}
+  # 配列の中身を全て大文字に変換
   upper_case_programming_languages = programming_languages.map(&:upcase)
+
   # 以下は変更しないで下さい
   p programming_languages
   p upper_case_programming_languages
@@ -86,6 +93,13 @@ def q10
   foods = %w(いか たこ うに しゃけ うにぎり うに軍艦 うに丼)
 
   # 以下に回答を記載
+  foods.each do |food|
+    if food.include?('うに')
+      puts "好物です"
+    else
+      puts "まぁまぁ好きです"
+    end
+  end
 
 end
 
@@ -93,6 +107,10 @@ def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
+  # p sports.flatten.uniq => ネストされた配列を展開して重複削除
+  sports.flatten.uniq.each.with_index(1) do |s, i|
+    puts "No#{i} #{s}"
+  end
 
 end
 
@@ -100,7 +118,8 @@ def q12
   data = { user: { name: "satou", age: 33 } }
 
   # 以下に回答を記載
-
+  puts data[:user][:name]
+  
 end
 
 def q13
@@ -108,13 +127,17 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-
+  # マージ時に重複しているkeyの値は上書きされる
+  puts user_data.merge(update_data)
+   
 end
 
 def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
+  # キーの一覧を配列で取得
+  p data.keys
 
 end
 
@@ -123,6 +146,9 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
+  # key検索
+  puts "OK" if data1.key?(:age)
+  puts "NG" if !data2.key?(:age)
 
 end
 
