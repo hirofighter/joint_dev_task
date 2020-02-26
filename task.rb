@@ -247,12 +247,38 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_accessor :name, :age
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+
+  end
 
 end
 
-class Zoo < UserQ20
+class Zoo 
   # 以下に回答を記載
 
+  def initialize(name:, entry_fee:)
+    @entry_fee = entry_fee
+
+  end
+
+  def info_entry_fee(user)
+
+    if user.age >= 0 && user.age <= 5
+      price = @entry_fee[:infant]
+    elsif user.age >= 6 && user.age <= 12
+      price = @entry_fee[:children]
+    elsif user.age >= 13 && user.age <= 64
+      price = @entry_fee[:adult]
+    elsif user.age >= 65 && user.age <= 120
+      price = @entry_fee[:senior]
+    end
+    # puts "#{user.name}さんの入場料金は#{@entry_fee[:infant]}円です"
+    puts "#{user.name}さんの入場料金は #{price} 円です。"
+
+  end
 end
 
 
