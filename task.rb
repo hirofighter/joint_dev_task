@@ -69,8 +69,12 @@ def q8
 
   # 以下に回答を記載
   # 先頭文字だけを大文字にする => 配列をループして単語毎にcapitalizeする
-  upper_case_programming_languages = programming_languages.each{|str| str.capitalize!}
+  # upper_case_programming_languages = programming_languages.each{|str| str.capitalize!}
   # 配列の中身を全て大文字に変換
+  # upper_case_programming_languages = programming_languages.map(&:upcase)
+
+  # 再提出
+  programming_languages.map!(&:capitalize)
   upper_case_programming_languages = programming_languages.map(&:upcase)
 
   # 以下は変更しないで下さい
@@ -128,7 +132,9 @@ def q13
 
   # 以下に回答を記載
   # マージ時に重複しているkeyの値は上書きされる
-  puts user_data.merge(update_data)
+  puts user_data # 変更前確認用
+  puts user_data.merge!(update_data)
+  puts user_data # 変更後確認用
    
 end
 
@@ -147,8 +153,8 @@ def q15
 
   # 以下に回答を記載
   # key検索
-  puts "OK" if data1.key?(:age)
-  puts "NG" if !data2.key?(:age)
+  puts data1.key?(:age) ? "OK" : "NG"
+  puts data2.key?(:age) ? "OK" : "NG"
 
 end
 
@@ -161,11 +167,30 @@ def q16
   ]
 
   # 以下に回答を記載
+  users.each do |user|
+    puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です。"
+  end
 
 end
 
 class UserQ17
   # 以下に回答を記載
+  def initialize(name:, age:, gender:, admin:)
+    @name = name
+    @age = age
+    @gender = gender
+    @admin = admin
+  end
+
+  def info
+    admin = @admin ? "有り" : "無し"
+    puts <<~TEXT
+    名前：#{@name}
+    年齢：#{@age}
+    性別：#{@gender}
+    管理者権限：#{admin}
+    TEXT
+  end
 
 end
 
@@ -181,6 +206,18 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+  end
+
+  def introduce
+    if @age > 30
+      puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
+    else
+      puts "はいさいまいど〜，#{@name}です！！！"
+    end
+  end
 
 end
 
@@ -195,10 +232,11 @@ end
 
 class Item
   # 以下を修正して下さい
-
-  def initialize(name)
+  attr_accessor :name
+  def initialize(name:)
     @name = name
   end
+
 end
 
 def q19
@@ -212,7 +250,7 @@ class UserQ20
 
 end
 
-class Zoo
+class Zoo < UserQ20
   # 以下に回答を記載
 
 end
