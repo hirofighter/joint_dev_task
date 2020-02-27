@@ -132,9 +132,9 @@ def q13
 
   # 以下に回答を記載
   # マージ時に重複しているkeyの値は上書きされる
-  puts user_data # 変更前確認用
+  # puts user_data # 変更前確認用
   puts user_data.merge!(update_data)
-  puts user_data # 変更後確認用
+  # puts user_data # 変更後確認用
    
 end
 
@@ -175,11 +175,12 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(name:, age:, gender:, admin:)
-    @name = name
-    @age = age
-    @gender = gender
-    @admin = admin
+  # **hoge オプション変数
+  def initialize(**user)
+    @name = user[:name]
+    @age = user[:age]
+    @gender = user[:gender]
+    @admin = user[:admin]
   end
 
   def info
@@ -232,7 +233,10 @@ end
 
 class Item
   # 以下を修正して下さい
-  attr_accessor :name
+  # attr_reader ゲッター
+  # attr_writer セッター
+  # attr_accessor ゲッターセッター両方
+  attr_reader :name
   def initialize(name:)
     @name = name
   end
@@ -260,21 +264,36 @@ class Zoo
   # 以下に回答を記載
 
   def initialize(name:, entry_fee:)
+    @name = name
     @entry_fee = entry_fee
-
   end
 
   def info_entry_fee(user)
 
-    if user.age >= 0 && user.age <= 5
-      price = @entry_fee[:infant]
-    elsif user.age >= 6 && user.age <= 12
-      price = @entry_fee[:children]
-    elsif user.age >= 13 && user.age <= 64
-      price = @entry_fee[:adult]
-    elsif user.age >= 65 && user.age <= 120
-      price = @entry_fee[:senior]
-    end
+    # if user.age >= 0 && user.age <= 5
+    #   price = @entry_fee[:infant]
+    # elsif user.age >= 6 && user.age <= 12
+    #   price = @entry_fee[:children]
+    # elsif user.age >= 13 && user.age <= 64
+    #   price = @entry_fee[:adult]
+    # elsif user.age >= 65 && user.age <= 120
+    #   price = @entry_fee[:senior]
+    # end
+
+    # case文で書く
+    price = (
+      case user.age
+      when 0..5
+        @entry_fee[:infant]
+      when 6..12
+        @entry_fee[:children]
+      when 13..64
+        @entry_fee[:adult]
+      when 65..120
+        @entry_fee[:senior]
+      end
+    )
+
     # puts "#{user.name}さんの入場料金は#{@entry_fee[:infant]}円です"
     puts "#{user.name}さんの入場料金は #{price} 円です。"
 
